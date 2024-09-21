@@ -19,7 +19,7 @@ PetPal is an adoption platform that connects pets in shelters with potential ado
    git clone https://github.com/B3113/petpal.git
 2. Install dependencies:
    ```bash 
-   `npm install`
+   npm install
 3. Run the development server:
    ```bash
-   `npm run dev`
+   npm run dev
