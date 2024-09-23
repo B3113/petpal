@@ -19,13 +19,38 @@ export default function Navbars() {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden w-10 h-10"
         />
-        <p className="text-xl cursor-pointer font-bold md:p-5">Pet-Pal</p>
+        <Link
+        className="text-xl text-black cursor-pointer font-bold md:p-5 hover:opacity-50"
+        href="/#home"
+        >
+        Pet-Pal
+        </Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-8 text-sm" justify="center">
-        <div className="cursor-pointer hover:text-[#7827C8]">Home</div>
-        <div className="cursor-pointer hover:text-[#7827C8]">Adoption</div>
-        <div className="cursor-pointer hover:text-[#7827C8]">About us</div>
-        <div className="cursor-pointer hover:text-[#7827C8]">Contact</div>
+        <Link
+        className="text-sm cursor-pointer text-black hover:opacity-50"
+        href="/#home"
+        >
+        Home
+        </Link>
+        <Link
+        className="text-sm cursor-pointer text-black hover:opacity-50"
+        href="/#adoption"
+        >
+        Adoption
+        </Link>
+        <Link
+        className="text-sm cursor-pointer text-black hover:opacity-50"
+        href="/#aboutus"
+        >
+        About us
+        </Link>
+        <Link
+        className="text-sm cursor-pointer text-black hover:opacity-50"
+        href="/#contact"
+        >
+        Contact
+        </Link>
       </NavbarContent>
       <NavbarContent className="text-sm" justify="end">
         <div className="cursor-pointer hover:opacity-60 hidden lg:flex">

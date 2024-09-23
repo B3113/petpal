@@ -13,7 +13,7 @@ import { Icon } from "@iconify/react";
 
 export default function Home() {
   return (
-    <div>
+    <div id="home">
       <div className="flex flex-col-reverse lg:flex-row items-center justify-between px-0 md:px-16 lg:px-32 xl:px-56 mt-20">
         <div className="mt-10 lg:mt-0 items-center lg:items-start flex flex-col">
           <div className="pointer-events-none flex gap-2 h-6 w-40 lg:h-8 lg:w-44 rounded-full border border-black/20 px-5 items-center text-[10px] lg:text-xs text-black/60">
@@ -51,7 +51,7 @@ export default function Home() {
             isFooterBlurred
             radius="lg"
             className="border-none h-[200px] w-[200px] md:h-[250px] md:w-[250px] lg:h-[300px] lg:w-[300px] xl:h-[340px] xl:w-[340px]"
-          >
+            >
             <Image alt="Pets" className="object-cover" src="../img/dog.png" />
             <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
               <p className="text-tiny text-black/80 pointer-events-none">

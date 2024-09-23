@@ -47,7 +47,7 @@ export default function Adoption() {
   ];
 
   return (
-    <div className=" flex justify-center mt-20">
+    <div id="adoption" className=" flex justify-center mt-20">
       <div className="gap-10 lg:gap-5 grid md:grid-cols-2 lg:grid-cols-3 w-[300px] h-[2500px] md:w-[600px] md:h-[1200px] lg:w-[900px] lg:h-[900px]">
         {list.map((item, index) => (
           <Card
@@ -72,6 +72,7 @@ export default function Adoption() {
           </Card>
         ))}
       </div>
+      <div></div>
     </div>
   );
 }

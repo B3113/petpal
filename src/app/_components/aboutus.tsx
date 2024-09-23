@@ -3,12 +3,12 @@ import { Image } from "@nextui-org/react";
 
 export default function Aboutus() {
   return (
-    <div className="mt-20">
+    <div id="aboutus" className="mt-20">
       <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
       <div className="mt-20 items-center xl:items-start  xl:px-24 flex flex-col xl:flex-row xl:justify-between">
         <div className="flex flex-col items-center xl:items-start xl:justify-start">
-          <div className="text-2xl font-semibold">ABOUT US</div>
-          <div className="mt-5 text-[12px] lg:text-[16px] opacity-50">
+          <div className="text-2xl font-semibold cursor-default">ABOUT US</div>
+          <div className="mt-5 text-[12px] lg:text-[16px] opacity-50 cursor-default">
             At PetPal, we’re dedicated to providing a safe, <br /> modern
             shelter for pets in need while making <br /> the adoption process
             seamless and joyful.
