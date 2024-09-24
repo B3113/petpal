@@ -4,6 +4,9 @@ import { Poppins } from "next/font/google";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { SessionProvider } from "next-auth/react";
+import { getServerAuthSession } from "~/server/auth";
+import { type Session } from "next-auth";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -13,7 +16,7 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (

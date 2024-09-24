@@ -7,63 +7,78 @@ import {
   NavbarMenuToggle,
   Link,
   Button,
+  Avatar,
+  User,
 } from "@nextui-org/react";
+import { signIn, signOut } from "next-auth/react";
+import { type Session } from "next-auth";
 
-export default function Navbars() {
+type Props = {
+  session: Session;
+};
+
+export default function Navbars({ session }: Props) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  console.log(session);
 
   return (
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
       <NavbarBrand className="gap-3">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden w-10 h-10"
+          className="h-10 w-10 sm:hidden"
         />
         <Link
-        className="text-xl text-black cursor-pointer font-bold md:p-5 hover:opacity-50"
-        href="/#home"
+          className="cursor-pointer text-xl font-bold text-black hover:opacity-50 md:p-5"
+          href="/#home"
         >
-        Pet-Pal
+          Pet-Pal
         </Link>
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-8 text-sm" justify="center">
+      <NavbarContent className="hidden gap-8 text-sm sm:flex" justify="center">
         <Link
-        className="text-sm cursor-pointer text-black hover:opacity-50"
-        href="/#home"
+          className="cursor-pointer text-sm text-black hover:opacity-50"
+          href="/#home"
         >
-        Home
+          Home
         </Link>
         <Link
-        className="text-sm cursor-pointer text-black hover:opacity-50"
-        href="/#adoption"
+          className="cursor-pointer text-sm text-black hover:opacity-50"
+          href="/#adoption"
         >
-        Adoption
+          Adoption
         </Link>
         <Link
-        className="text-sm cursor-pointer text-black hover:opacity-50"
-        href="/#aboutus"
+          className="cursor-pointer text-sm text-black hover:opacity-50"
+          href="/#aboutus"
         >
-        About us
+          About us
         </Link>
         <Link
-        className="text-sm cursor-pointer text-black hover:opacity-50"
-        href="/#contact"
+          className="cursor-pointer text-sm text-black hover:opacity-50"
+          href="/#contact"
         >
-        Contact
+          Contact
         </Link>
       </NavbarContent>
       <NavbarContent className="text-sm" justify="end">
-        <div className="cursor-pointer hover:opacity-60 hidden lg:flex">
-          Sign in
-        </div>
-
-        <Button as={Link} color="default" href="#" variant="flat">
-          Sign Up
-        </Button>
+        {session ? (
+          <User
+            avatarProps={{ radius: "lg", src: session.user.image ?? "" }}
+            name={session.user.name}
+          ></User>
+        ) : (
+          <Button
+            onClick={async () => {
+              await signIn("google");
+            }}
+            color="secondary"
+            variant="flat"
+          >
+            Login
+          </Button>
+        )}
       </NavbarContent>
     </Navbar>
   );
 }
-
-
-

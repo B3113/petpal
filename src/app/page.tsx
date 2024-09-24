@@ -1,19 +1,21 @@
-import React from 'react'
-import Navbar from './_components/navbar'
-import Home from './_components/home'
-import Adoption from './_components/adoption'
-import Aboutus from './_components/aboutus'
-import Contact from './_components/contact'
+import React from "react";
+import Navbar from "./_components/navbar";
+import Home from "./_components/home";
+import Adoption from "./_components/adoption";
+import Aboutus from "./_components/aboutus";
+import Contact from "./_components/contact";
+import { getServerAuthSession } from "~/server/auth";
+import { type Session } from "next-auth";
 
-export default function page() {
+export default async function page() {
+  const session = await getServerAuthSession();
   return (
     <div>
-      <Navbar/>
-      <Home/>
-      <Adoption/>
-      <Aboutus/>
-      <Contact/>
-      </div>
-  )
+      <Navbar session={session!} />
+      <Home />
+      <Adoption />
+      <Aboutus />
+      <Contact />
+    </div>
+  );
 }
-
