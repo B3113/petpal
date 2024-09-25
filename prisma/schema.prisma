@@ -72,3 +72,18 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Pet {
+    id          String   @id @default(cuid())
+    name        String
+    species     String
+    breed       String
+    birthDate   DateTime
+    image       String
+    description String
+    status      String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@index([name])
+}

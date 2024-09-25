@@ -1,8 +1,11 @@
 "use client";
 import React from "react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { api } from "~/trpc/react";
 
 export default function Adoption() {
+  const pets = api.pet.get.useQuery().data;
+  console.log(pets);
   const list = [
     {
       title: "Orange",
@@ -47,8 +50,8 @@ export default function Adoption() {
   ];
 
   return (
-    <div id="adoption" className=" flex justify-center mt-20">
-      <div className="gap-10 lg:gap-5 grid md:grid-cols-2 lg:grid-cols-3 w-[300px] h-[2500px] md:w-[600px] md:h-[1200px] lg:w-[900px] lg:h-[900px]">
+    <div id="adoption" className="mt-20 flex justify-center">
+      <div className="grid h-[2500px] w-[300px] gap-10 md:h-[1200px] md:w-[600px] md:grid-cols-2 lg:h-[900px] lg:w-[900px] lg:grid-cols-3 lg:gap-5">
         {list.map((item, index) => (
           <Card
             shadow="sm"
@@ -56,7 +59,7 @@ export default function Adoption() {
             isPressable
             onPress={() => console.log("item pressed")}
           >
-            <CardFooter className="text-small absolute justify-between">
+            <CardFooter className="absolute justify-between text-small">
               <b>{item.title}</b>
               <p className="text-default-500">{item.price}</p>
             </CardFooter>
@@ -76,3 +79,4 @@ export default function Adoption() {
     </div>
   );
 }
+

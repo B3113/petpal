@@ -70,7 +70,9 @@ export default function Navbars({ session }: Props) {
         ) : (
           <Button
             onClick={async () => {
-              await signIn("google");
+              await signIn("google", {
+                callbackUrl: "/admin",
+              });
             }}
             color="secondary"
             variant="flat"
