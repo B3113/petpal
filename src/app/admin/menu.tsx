@@ -16,7 +16,7 @@ export default function Menu({ onSelectPage }) {
               onClick={() => onSelectPage("Pet_manage")}
             >
               <Icon className="h-4" icon="line-md:home-twotone" />
-              Home
+              Pet Manage
             </Button>
           </li>
           <li>
@@ -26,7 +26,7 @@ export default function Menu({ onSelectPage }) {
               onClick={() => onSelectPage("Approval")}
             >
               <Icon className="h-4" icon="uil:setting" />
-              Settings
+              Adopt Approval
             </Button>
           </li>
           <li>

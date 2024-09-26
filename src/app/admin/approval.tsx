@@ -18,27 +18,15 @@ import {
   Pagination,
 } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
-// import { PlusIcon } from "./PlusIcon";
-// import { VerticalDotsIcon } from "./VerticalDotsIcon";
-// import { SearchIcon } from "./SearchIcon";
-// import { ChevronDownIcon } from "./ChevronDownIcon";
-// import { capitalize } from "./utils";
 
 const columns = [
   { name: "ID", uid: "id", sortable: true },
   { name: "NAME", uid: "name", sortable: true },
   { name: "AGE", uid: "age", sortable: true },
-  { name: "ROLE", uid: "role", sortable: true },
-  { name: "TEAM", uid: "team" },
+  { name: "CAREER", uid: "role", sortable: true },
   { name: "EMAIL", uid: "email" },
-  { name: "STATUS", uid: "status", sortable: true },
-  { name: "ACTIONS", uid: "actions" },
-];
-
-const statusOptions = [
-  { name: "Active", uid: "active" },
-  { name: "Paused", uid: "paused" },
-  { name: "Vacation", uid: "vacation" },
+  { name: "PET ID", uid: "team" },
+  { name: "NOTE", uid: "actions" },
 ];
 
 const users = [
@@ -244,13 +232,7 @@ const users = [
   },
 ];
 
-export { columns, users, statusOptions };
-
-const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
-};
+export { columns, users };
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
 
@@ -286,17 +268,9 @@ export default function Approval() {
         user.name.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
-    if (
-      statusFilter !== "all" &&
-      Array.from(statusFilter).length !== statusOptions.length
-    ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status),
-      );
-    }
 
     return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+  }, [users, filterValue]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -340,24 +314,16 @@ export default function Approval() {
             </p>
           </div>
         );
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            color={statusColorMap[user.status]}
-            size="sm"
-            variant="flat"
-          >
-            {cellValue}
-          </Chip>
-        );
       case "actions":
         return (
           <div className="relative flex items-center justify-end gap-2">
             <Dropdown>
               <DropdownTrigger>
                 <Button isIconOnly size="sm" variant="light">
-                  {/* <VerticalDotsIcon className="text-default-300" /> */}
+                  <Icon
+                    icon="tabler:dots-vertical"
+                    className="text-default-300"
+                  />
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
@@ -407,7 +373,7 @@ export default function Approval() {
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4 p-10">
-        <div className="text-2xl">Adopter Approval</div>
+        <div className="text-2xl">Adopt Approval</div>
         <div className="mt-4 flex items-end justify-between gap-3">
           <Input
             isClearable
@@ -419,32 +385,6 @@ export default function Approval() {
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
-            <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button
-                  endContent={
-                    <Icon icon="mingcute:down-line" className="text-small" />
-                  }
-                  variant="flat"
-                >
-                  Status
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={statusFilter}
-                selectionMode="multiple"
-                onSelectionChange={setStatusFilter}
-              >
-                {statusOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
-                    {status.name}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button

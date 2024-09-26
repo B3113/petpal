@@ -18,27 +18,19 @@ import {
   Pagination,
 } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
-// import { PlusIcon } from "./PlusIcon";
-// import { VerticalDotsIcon } from "./VerticalDotsIcon";
-// import { SearchIcon } from "./SearchIcon";
-// import { ChevronDownIcon } from "./ChevronDownIcon";
-// import { capitalize } from "./utils";
 
 const columns = [
   { name: "ID", uid: "id", sortable: true },
   { name: "NAME", uid: "name", sortable: true },
-  { name: "AGE", uid: "age", sortable: true },
-  { name: "ROLE", uid: "role", sortable: true },
-  { name: "TEAM", uid: "team" },
-  { name: "EMAIL", uid: "email" },
+  { name: "BIRTH DATE", uid: "age", sortable: true },
+  { name: "SPECIES", uid: "role", sortable: true },
   { name: "STATUS", uid: "status", sortable: true },
-  { name: "ACTIONS", uid: "actions" },
+  { name: "NOTE", uid: "actions" },
 ];
 
 const statusOptions = [
-  { name: "Active", uid: "active" },
-  { name: "Paused", uid: "paused" },
-  { name: "Vacation", uid: "vacation" },
+  { name: "Available", uid: "active" },
+  { name: "Unavailable", uid: "paused" },
 ];
 
 const users = [
@@ -357,7 +349,10 @@ export default function Pet_manage() {
             <Dropdown>
               <DropdownTrigger>
                 <Button isIconOnly size="sm" variant="light">
-                  {/* <VerticalDotsIcon className="text-default-300" /> */}
+                  <Icon
+                    icon="tabler:dots-vertical"
+                    className="text-default-300"
+                  />
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
