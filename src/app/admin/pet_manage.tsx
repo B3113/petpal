@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   Table,
@@ -16,21 +15,27 @@ import {
   Chip,
   User,
   Pagination,
+  Selection,
+  ChipProps,
+  SortDescriptor,
 } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 
 const columns = [
   { name: "ID", uid: "id", sortable: true },
   { name: "NAME", uid: "name", sortable: true },
-  { name: "BIRTH DATE", uid: "age", sortable: true },
-  { name: "SPECIES", uid: "role", sortable: true },
+  { name: "AGE", uid: "age", sortable: true },
+  { name: "ROLE", uid: "role", sortable: true },
+  { name: "TEAM", uid: "team" },
+  { name: "EMAIL", uid: "email" },
   { name: "STATUS", uid: "status", sortable: true },
-  { name: "NOTE", uid: "actions" },
+  { name: "ACTIONS", uid: "actions" },
 ];
 
 const statusOptions = [
-  { name: "Available", uid: "active" },
-  { name: "Unavailable", uid: "paused" },
+  { name: "Active", uid: "active" },
+  { name: "Paused", uid: "paused" },
+  { name: "Vacation", uid: "vacation" },
 ];
 
 const users = [
@@ -92,7 +97,7 @@ const users = [
     age: "29",
     avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
     email: "brian.kim@example.com",
-    status: "active",
+    status: "Active",
   },
   {
     id: 7,
@@ -238,7 +243,7 @@ const users = [
 
 export { columns, users, statusOptions };
 
-const statusColorMap = {
+const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
   paused: "danger",
   vacation: "warning",
@@ -246,18 +251,23 @@ const statusColorMap = {
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
 
-export default function Pet_manage() {
+type User = (typeof users)[0];
+
+export default function App() {
   const [filterValue, setFilterValue] = React.useState("");
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
-  const [visibleColumns, setVisibleColumns] = React.useState(
+  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
+    new Set([]),
+  );
+  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
     new Set(INITIAL_VISIBLE_COLUMNS),
   );
-  const [statusFilter, setStatusFilter] = React.useState("all");
+  const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [sortDescriptor, setSortDescriptor] = React.useState({
+  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "age",
     direction: "ascending",
   });
+
   const [page, setPage] = React.useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
@@ -300,17 +310,17 @@ export default function Pet_manage() {
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column];
-      const second = b[sortDescriptor.column];
+    return [...items].sort((a: User, b: User) => {
+      const first = a[sortDescriptor.column as keyof User] as number;
+      const second = b[sortDescriptor.column as keyof User] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+  const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
+    const cellValue = user[columnKey as keyof User];
 
     switch (columnKey) {
       case "name":
@@ -380,12 +390,15 @@ export default function Pet_manage() {
     }
   }, [page]);
 
-  const onRowsPerPageChange = React.useCallback((e) => {
-    setRowsPerPage(Number(e.target.value));
-    setPage(1);
-  }, []);
+  const onRowsPerPageChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setRowsPerPage(Number(e.target.value));
+      setPage(1);
+    },
+    [],
+  );
 
-  const onSearchChange = React.useCallback((value) => {
+  const onSearchChange = React.useCallback((value?: string) => {
     if (value) {
       setFilterValue(value);
       setPage(1);
@@ -403,7 +416,7 @@ export default function Pet_manage() {
     return (
       <div className="flex flex-col gap-4 p-10">
         <div className="text-2xl">Pet Management</div>
-        <div className="mt-4 flex items-end justify-between gap-3">
+        <div className="mt-6 flex items-end justify-between gap-3">
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
@@ -466,7 +479,7 @@ export default function Pet_manage() {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<Icon icon="ion:add" />}>
+            <Button color="primary" endContent={<Icon icon="line-md:plus" />}>
               Add New
             </Button>
           </div>
@@ -493,15 +506,15 @@ export default function Pet_manage() {
     filterValue,
     statusFilter,
     visibleColumns,
+    onSearchChange,
     onRowsPerPageChange,
     users.length,
-    onSearchChange,
     hasSearchFilter,
   ]);
 
   const bottomContent = React.useMemo(() => {
     return (
-      <div className="mx-9 flex items-center justify-between px-2 py-2">
+      <div className="mx-10 flex items-center justify-between px-2 py-2">
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
             ? "All items selected"
@@ -540,7 +553,7 @@ export default function Pet_manage() {
 
   return (
     <Table
-      aria-label="Adoptor Table"
+      aria-label="Pets Table"
       isHeaderSticky
       bottomContent={bottomContent}
       bottomContentPlacement="outside"

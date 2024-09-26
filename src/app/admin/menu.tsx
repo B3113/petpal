@@ -3,7 +3,11 @@ import { Button } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 import { signOut } from "next-auth/react";
 
-export default function Menu({ onSelectPage }) {
+type Props = {
+  onSelectPage: (page: string) => void;
+};
+
+export default function Menu({ onSelectPage }: Props) {
   return (
     <div className="flex h-screen w-48 flex-col items-center bg-gray-100 p-4 py-10">
       <div className="mb-10 cursor-default text-2xl text-black">PetPal</div>
@@ -34,9 +38,7 @@ export default function Menu({ onSelectPage }) {
               className="flex w-full items-center text-red-700 hover:opacity-70"
               variant="light"
               onClick={async () => {
-                await signOut("google", {
-                  callbackUrl: "/",
-                });
+                await signOut();
               }}
             >
               Logout
