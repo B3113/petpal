@@ -58,12 +58,12 @@ export default function Navbars({ session }: Props) {
       </NavbarContent>
       <NavbarContent className="text-sm" justify="end">
         {session ? (
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
             <User
               avatarProps={{ radius: "lg", src: session.user.image ?? "" }}
               name={session.user.name}
             ></User>
-            <Button
+            <a
               className="flex items-center text-red-700 hover:opacity-70"
               variant="light"
               onClick={async () => {
@@ -73,7 +73,7 @@ export default function Navbars({ session }: Props) {
               }}
             >
               <Icon icon="material-symbols:logout" />
-            </Button>
+            </a>
           </div>
         ) : (
           <Button
