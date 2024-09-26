@@ -259,6 +259,7 @@ type User = (typeof users)[0];
 
 export default function App() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([]),
@@ -371,7 +372,7 @@ export default function App() {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-                <DropdownItem onPress={onOpen}>Edit</DropdownItem>
+                <DropdownItem>Edit</DropdownItem>
                 <DropdownItem>Delete</DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -483,7 +484,11 @@ export default function App() {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<Icon icon="line-md:plus" />}>
+            <Button
+              onPress={onOpen}
+              color="primary"
+              endContent={<Icon icon="line-md:plus" />}
+            >
               Add New
             </Button>
           </div>
@@ -642,7 +647,7 @@ export default function App() {
                   className="bg-[#6f4ef2] shadow-lg shadow-indigo-500/20"
                   onPress={onClose}
                 >
-                  Save Change
+                  Add
                 </Button>
               </ModalFooter>
             </>
