@@ -333,9 +333,8 @@ export default function App() {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
+                <DropdownItem>Approve</DropdownItem>
+                <DropdownItem>Disapprove</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
