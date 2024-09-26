@@ -14,20 +14,20 @@ import { Icon } from "@iconify/react";
 export default function Home() {
   return (
     <div id="home">
-      <div className="flex flex-col-reverse lg:flex-row items-center justify-between px-0 md:px-16 lg:px-32 xl:px-56 mt-20">
-        <div className="mt-10 lg:mt-0 items-center lg:items-start flex flex-col">
-          <div className="pointer-events-none flex gap-2 h-6 w-40 lg:h-8 lg:w-44 rounded-full border border-black/20 px-5 items-center text-[10px] lg:text-xs text-black/60">
+      <div className="mt-20 flex flex-col-reverse items-center justify-between px-0 md:px-16 lg:flex-row lg:px-32 xl:px-56">
+        <div className="mt-10 flex flex-col items-center lg:mt-0 lg:items-start">
+          <div className="pointer-events-none flex h-6 w-40 items-center gap-2 rounded-full border border-black/20 px-5 text-[10px] text-black/60 lg:h-8 lg:w-44 lg:text-xs">
             <Icon icon="ph:paw-print-fill" />
             ADOPTION CENTER
           </div>
-          <div className="pointer-events-none  text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold mt-2 md:mt-5">
+          <div className="pointer-events-none mt-2 text-2xl font-semibold md:mt-5 md:text-3xl lg:text-4xl xl:text-5xl">
             Find Your Pawsome <br /> Partner with PetPal
           </div>
-          <div className=" pointer-events-none text-[12px] lg:text-[16px] mt-1 md:mt-2 opacity-50">
+          <div className="pointer-events-none mt-1 text-[12px] opacity-50 md:mt-2 lg:text-[16px]">
             Discover your perfect companion and give <br /> a pet in need a
             forever home.
           </div>
-          <div className="flex items-center gap-8 mt-8 lg:mt-5">
+          <div className="mt-8 flex items-center gap-8 lg:mt-5">
             <Input
               isClearable
               radius="full"
@@ -46,19 +46,19 @@ export default function Home() {
             <Tab title="Rabbit"></Tab>
           </Tabs>
         </div>
-        <div className="felx felx-col justify-center items-center">
+        <div className="felx felx-col items-center justify-center">
           <Card
             isFooterBlurred
             radius="lg"
-            className="border-none h-[200px] w-[200px] md:h-[250px] md:w-[250px] lg:h-[300px] lg:w-[300px] xl:h-[340px] xl:w-[340px]"
-            >
+            className="h-[200px] w-[200px] border-none md:h-[250px] md:w-[250px] lg:h-[300px] lg:w-[300px] xl:h-[340px] xl:w-[340px]"
+          >
             <Image alt="Pets" className="object-cover" src="../img/dog.png" />
-            <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-              <p className="text-tiny text-black/80 pointer-events-none">
+            <CardFooter className="absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] justify-between overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10">
+              <p className="pointer-events-none text-tiny text-black/80">
                 Dalmatian
               </p>
               <Button
-                className="text-tiny text-white bg-black/20"
+                className="bg-black/20 text-tiny text-white"
                 variant="flat"
                 color="default"
                 radius="lg"
@@ -68,7 +68,7 @@ export default function Home() {
               </Button>
             </CardFooter>
           </Card>
-          <div className="gap-5 mt-5 flex justify-center items-center">
+          <div className="mt-5 flex items-center justify-center gap-5">
             <Button
               variant="light"
               size="sm"
@@ -86,44 +86,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-
-      {/* <div className="flex flex-col justify-center items-center mt-10">
-        <div className="font-semibold text-4xl">
-          Find Your Pawsome Partner with PetPal
-        </div>
-        <div className="text-sm opacity-50">
-          Discover your perfect companion and give a pet in need a forever home.
-        </div>
-        <div className="flex items-center gap-8 mt-10">
-          <Select
-            color="warning"
-            placeholder="Select pet type"
-            selectionMode="multiple"
-            className="w-64"
-            onChange={(e) => {
-              console.log("selected = " + e.target.value);
-              setSelected([
-                ...selected,
-                animals.find((animal) => animal.key == e.target.value),
-              ]);
-            }}
-          >
-            {animals.map((animal) => (
-              <SelectItem key={animal.key}>{animal.label}</SelectItem>
-            ))}
-          </Select>
-          {selected.map((animal) => (
-            <div key={animal.key}>{animal.label}</div>
-          ))}
-          <Button color="success" variant="flat">
-            Search
-          </Button>
-        </div>
-        <div>
-          <img src={"/img/dog.png"} alt="Gloden" className="h-[500px]" />
-        </div>
-      </div> */}
+      <hr className="my-8 h-px border-0 bg-gray-200 dark:bg-gray-700"></hr>
     </div>
   );
 }
