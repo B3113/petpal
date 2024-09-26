@@ -1,4 +1,6 @@
 import React from "react";
+import { parseDate, getLocalTimeZone } from "@internationalized/date";
+
 import {
   Table,
   TableHeader,
@@ -28,6 +30,7 @@ import {
   Select,
   SelectItem,
   Textarea,
+  type DateValue,
 } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 import { stat } from "fs";
@@ -67,6 +70,7 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 const INITIAL_VISIBLE_COLUMNS = ["name", "specie", "status", "actions"];
 
 export default function App() {
+  const [editingPet, setEditingPet] = React.useState<Pet | null>(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [image, setImage] = React.useState("");
   const pets = api.pet.get.useQuery().data ?? [];
@@ -144,7 +148,7 @@ export default function App() {
         return (
           <User
             avatarProps={{ radius: "lg", src: pet.image }}
-            description={pet.breed as string}
+            description={pet.breed}
             name={pet.name}
           ></User>
         );
@@ -172,8 +176,23 @@ export default function App() {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setEditingPet(pet);
+                    onOpen();
+                  }}
+                >
+                  Edit
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    if (confirm("Are you sure you want to delete this pet?")) {
+                      deletePet.mutate({ id: pet.id });
+                    }
+                  }}
+                >
+                  Delete
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -363,6 +382,16 @@ export default function App() {
   const router = useRouter();
   const utils = api.useUtils();
 
+  const deletePet = api.pet.delete.useMutation({
+    async onSuccess() {
+      await utils.pet.get.refetch();
+      alert("Pet deleted successfully");
+    },
+    async onError(error) {
+      alert("Error deleting pet: " + error.message);
+    },
+  });
+
   const addPet = api.pet.create.useMutation({
     async onSuccess() {
       await utils.pet.get.refetch();
@@ -379,11 +408,35 @@ export default function App() {
       specie: formData.get("specie") as string,
       breed: formData.get("breed") as string,
       description: formData.get("description") as string,
-      birthdate: new Date(Date.parse(formData.get("birthdate") as string)),
+      birthdate: formData.get("birthdate") as string,
       image: image,
     };
     console.log(data);
     addPet.mutate(data);
+  };
+
+  const updatePet = api.pet.update.useMutation({
+    async onSuccess() {
+      await utils.pet.get.refetch();
+      alert("Pet updated successfully");
+    },
+    async onError(error) {
+      alert("Error updating pet: " + error.message);
+    },
+  });
+
+  const handleUpdate = (formData: FormData) => {
+    const data = {
+      id: editingPet?.id,
+      name: formData.get("name") as string,
+      specie: formData.get("specie") as string,
+      breed: formData.get("breed") as string,
+      description: formData.get("description") as string,
+      birthdate: formData.get("birthdate") as string,
+      image: image === "" ? editingPet?.image : image,
+    };
+    console.log(data);
+    updatePet.mutate(data);
   };
 
   return (
@@ -441,7 +494,7 @@ export default function App() {
       >
         <ModalContent>
           {(onClose) => (
-            <form action={handleAddPet}>
+            <form action={editingPet ? handleUpdate : handleAddPet}>
               <ModalHeader className="flex flex-col gap-1">
                 Add New Pet
               </ModalHeader>
@@ -469,26 +522,39 @@ export default function App() {
                     variant="bordered"
                     label="Name"
                     name="name"
+                    defaultValue={editingPet?.name}
                   />
                   <Input
                     type="species"
                     variant="bordered"
                     label="Species"
                     name="specie"
+                    defaultValue={editingPet?.specie}
                   />
                 </div>
-                <Input variant="bordered" label="Breed" name="breed" />
+                <Input
+                  variant="bordered"
+                  label="Breed"
+                  name="breed"
+                  defaultValue={editingPet?.breed}
+                />
 
                 <Textarea
                   type="description"
                   variant="bordered"
                   label="Description"
                   name="description"
+                  defaultValue={editingPet?.description}
                 />
                 <DatePicker
                   label="Birth date"
                   className="w-full"
                   name="birthdate"
+                  defaultValue={
+                    editingPet?.birthdate
+                      ? parseDate(editingPet?.birthdate)
+                      : undefined
+                  }
                 />
               </ModalBody>
               <ModalFooter>
@@ -504,7 +570,7 @@ export default function App() {
                   className="bg-[#6f4ef2] shadow-lg shadow-indigo-500/20"
                   onPress={onClose}
                 >
-                  Add
+                  {editingPet ? "Update" : "Add"}
                 </Button>
               </ModalFooter>
             </form>

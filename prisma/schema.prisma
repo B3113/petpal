@@ -77,8 +77,8 @@ model Pet {
     id          String   @id @default(cuid())
     name        String
     breed       String
-    specie     String
-    birthdate   DateTime
+    specie      String
+    birthdate   String
     image       String
     description String
     status      String
