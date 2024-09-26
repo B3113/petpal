@@ -24,8 +24,12 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
+  DatePicker,
+  Select,
+  SelectItem,
 } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
+import { stat } from "fs";
 
 const columns = [
   { name: "ID", uid: "id", sortable: true },
@@ -37,9 +41,13 @@ const columns = [
 ];
 
 const statusOptions = [
-  { name: "Active", uid: "active" },
-  { name: "Paused", uid: "paused" },
-  { name: "Vacation", uid: "vacation" },
+  { name: "Active", uid: "active", label: "Available", key: "available" },
+  {
+    name: "Paused",
+    uid: "paused",
+    label: "Not Available",
+    key: "notavailable",
+  },
 ];
 
 const users = [
@@ -617,30 +625,34 @@ export default function App() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+                Add New Pet
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
-                  eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+                <div className="mb-6 flex w-full flex-wrap gap-4 md:mb-0 md:flex-nowrap">
+                  <Input type="name" variant="bordered" label="Name" />
+                  <Input type="species" variant="bordered" label="Species" />
+                </div>
+                <DatePicker label="Birth date" className="w-full" />
+                <Select
+                  isDisabled
+                  label="Status"
+                  placeholder="Select Status"
+                  defaultSelectedKeys={["available"]}
+                  className="w-full"
+                >
+                  {statusOptions.map((statusOptions) => (
+                    <SelectItem key={statusOptions.key}>
+                      {statusOptions.label}
+                    </SelectItem>
+                  ))}
+                </Select>
               </ModalBody>
               <ModalFooter>
-                <Button variant="light" onPress={onClose}>
+                <Button
+                  variant="light"
+                  onPress={onClose}
+                  className="text-[#6f4ef2]"
+                >
                   Close
                 </Button>
                 <Button
