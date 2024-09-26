@@ -76,8 +76,9 @@ model VerificationToken {
 model Pet {
     id          String   @id @default(cuid())
     name        String
-    species     String
-    birthDate   DateTime
+    breed       String
+    specie     String
+    birthdate   DateTime
     image       String
     description String
     status      String

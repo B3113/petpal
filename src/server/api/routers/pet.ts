@@ -23,24 +23,23 @@ export const petRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string(),
-        species: z.string(),
+        specie: z.string(),
         breed: z.string(),
-        birthDate: z.date(),
+        birthdate: z.date(),
         image: z.string(),
         description: z.string(),
-        status: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.db.pet.create({
         data: {
           name: input.name,
-          species: input.species,
+          specie: input.specie,
           breed: input.breed,
-          birthDate: input.birthDate,
+          birthdate: input.birthdate,
           image: input.image,
           description: input.description,
-          status: input.status,
+          status: "available",
         },
       });
     }),
@@ -50,9 +49,9 @@ export const petRouter = createTRPCRouter({
       z.object({
         id: z.string().optional(),
         name: z.string().optional(),
-        species: z.string().optional(),
+        specie: z.string().optional(),
         breed: z.string().optional(),
-        birthDate: z.date().optional(),
+        birthdate: z.date().optional(),
         image: z.string().optional(),
         description: z.string().optional(),
         status: z.string().optional(),
@@ -63,9 +62,9 @@ export const petRouter = createTRPCRouter({
         where: { id: input.id },
         data: {
           name: input.name,
-          species: input.species,
+          specie: input.specie,
           breed: input.breed,
-          birthDate: input.birthDate,
+          birthdate: input.birthdate,
           image: input.image,
           description: input.description,
           status: input.status,

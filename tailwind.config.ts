@@ -1,8 +1,9 @@
 import { type Config } from "tailwindcss";
+import { withUt } from "uploadthing/tw";
 import { fontFamily } from "tailwindcss/defaultTheme";
-import { nextui } from "@nextui-org/react"; 
+import { nextui } from "@nextui-org/react";
 
-export default {
+export default withUt({
   content: [
     "./src/**/*.tsx",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
@@ -15,17 +16,18 @@ export default {
     },
   },
   darkMode: "class",
-  plugins: [nextui(
-    {themes: {
-      light: {
-        colors:{
-          primary: {
-            DEFAULT: "#EADEF8",
-            foreground: "#000000",
-          }
-        }
+  plugins: [
+    nextui({
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              DEFAULT: "#EADEF8",
+              foreground: "#000000",
+            },
+          },
+        },
       },
-    },}
-  )], 
-} satisfies Config;
-
+    }),
+  ],
+}) satisfies Config;
