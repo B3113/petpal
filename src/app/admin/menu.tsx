@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
+import { signOut } from "next-auth/react";
 
 export default function Menu({ onSelectPage }) {
   return (
@@ -32,7 +33,11 @@ export default function Menu({ onSelectPage }) {
             <Button
               className="flex w-full items-center text-red-700 hover:opacity-70"
               variant="light"
-              onClick={() => console.log("Logout")} // Handle logout logic here
+              onClick={async () => {
+                await signOut("google", {
+                  callbackUrl: "/",
+                });
+              }}
             >
               Logout
             </Button>

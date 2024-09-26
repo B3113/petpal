@@ -63,10 +63,23 @@ export default function Navbars({ session }: Props) {
       </NavbarContent>
       <NavbarContent className="text-sm" justify="end">
         {session ? (
-          <User
-            avatarProps={{ radius: "lg", src: session.user.image ?? "" }}
-            name={session.user.name}
-          ></User>
+          <div className="flex items-center">
+            <User
+              avatarProps={{ radius: "lg", src: session.user.image ?? "" }}
+              name={session.user.name}
+            ></User>
+            <Button
+              className="flex w-full items-center text-red-700 hover:opacity-70"
+              variant="light"
+              onClick={async () => {
+                await signOut("google", {
+                  callbackUrl: "/",
+                });
+              }}
+            >
+              Logout
+            </Button>
+          </div>
         ) : (
           <Button
             onClick={async () => {
