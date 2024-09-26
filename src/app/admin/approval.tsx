@@ -419,9 +419,6 @@ export default function App() {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<Icon icon="line-md:plus" />}>
-              Add New
-            </Button>
           </div>
         </div>
         <div className="flex items-center justify-between">
