@@ -254,7 +254,7 @@ const statusColorMap = {
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
 
-export default function App() {
+export default function Pet_manage() {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -407,7 +407,8 @@ export default function App() {
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4 p-10">
-        <div className="flex items-end justify-between gap-3">
+        <div className="text-2xl">Pet Management</div>
+        <div className="mt-4 flex items-end justify-between gap-3">
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
@@ -477,7 +478,7 @@ export default function App() {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            Total {users.length} users
+            Total {users.length} pets
           </span>
           <label className="flex items-center gap-4 text-small text-default-400">
             Rows per page:
@@ -582,15 +583,3 @@ export default function App() {
     </Table>
   );
 }
-
-// import React from "react";
-
-// export default function Pet_manage() {
-//   return (
-//     <div>
-//       <div className="flex justify-center p-10 text-2xl">
-//         <div>Management</div>
-//       </div>
-//     </div>
-//   );
-// }
