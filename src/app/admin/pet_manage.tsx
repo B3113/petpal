@@ -632,6 +632,11 @@ export default function App() {
                   <Input type="name" variant="bordered" label="Name" />
                   <Input type="species" variant="bordered" label="Species" />
                 </div>
+                <Input
+                  type="description"
+                  variant="bordered"
+                  label="Description"
+                />
                 <DatePicker label="Birth date" className="w-full" />
                 <Select
                   isDisabled
