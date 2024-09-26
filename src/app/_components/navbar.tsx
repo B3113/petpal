@@ -65,7 +65,6 @@ export default function Navbars({ session }: Props) {
             ></User>
             <a
               className="flex items-center text-red-700 hover:opacity-70"
-              variant="light"
               onClick={async () => {
                 await signOut("google", {
                   callbackUrl: "/",
