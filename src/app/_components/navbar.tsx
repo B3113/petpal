@@ -12,6 +12,7 @@ import {
 } from "@nextui-org/react";
 import { signIn, signOut } from "next-auth/react";
 import { type Session } from "next-auth";
+import { Icon } from "@iconify/react";
 
 type Props = {
   session: Session;
@@ -26,7 +27,7 @@ export default function Navbars({ session }: Props) {
       <NavbarBrand className="gap-3">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="h-10 w-10 sm:hidden"
+          className="h-10 w-10 lg:hidden"
         />
         <Link
           className="cursor-pointer text-xl font-bold text-black hover:opacity-50 md:p-5"
@@ -35,7 +36,7 @@ export default function Navbars({ session }: Props) {
           Pet-Pal
         </Link>
       </NavbarBrand>
-      <NavbarContent className="hidden gap-8 text-sm sm:flex" justify="center">
+      <NavbarContent className="hidden gap-8 text-sm lg:flex" justify="center">
         <Link
           className="cursor-pointer text-sm text-black hover:opacity-50"
           href="/#home"
@@ -54,12 +55,6 @@ export default function Navbars({ session }: Props) {
         >
           About us
         </Link>
-        <Link
-          className="cursor-pointer text-sm text-black hover:opacity-50"
-          href="/#contact"
-        >
-          Contact
-        </Link>
       </NavbarContent>
       <NavbarContent className="text-sm" justify="end">
         {session ? (
@@ -69,7 +64,7 @@ export default function Navbars({ session }: Props) {
               name={session.user.name}
             ></User>
             <Button
-              className="flex w-full items-center text-red-700 hover:opacity-70"
+              className="flex items-center text-red-700 hover:opacity-70"
               variant="light"
               onClick={async () => {
                 await signOut("google", {
@@ -77,7 +72,7 @@ export default function Navbars({ session }: Props) {
                 });
               }}
             >
-              Logout
+              <Icon icon="material-symbols:logout" />
             </Button>
           </div>
         ) : (
