@@ -43,6 +43,7 @@ import { type Pet } from "@prisma/client";
 const columns = [
   { name: "ID", uid: "id", sortable: true },
   { name: "NAME", uid: "name", sortable: true },
+  { name: "GENDER", uid: "gender", sortable: true },
   { name: "SPECIES", uid: "specie", sortable: true },
   { name: "BIRTHDATE", uid: "birthdate", sortable: true },
   { name: "BREED", uid: "breed", sortable: true },
