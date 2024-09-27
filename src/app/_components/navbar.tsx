@@ -12,7 +12,6 @@ import {
 } from "@nextui-org/react";
 import { signIn, signOut } from "next-auth/react";
 import { type Session } from "next-auth";
-import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 
 type Props = {
