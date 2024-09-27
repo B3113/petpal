@@ -62,9 +62,10 @@ export default function Navbars({ session }: Props) {
             <User
               avatarProps={{ radius: "lg", src: session.user.image ?? "" }}
               name={session.user.name}
+              className="cursor-pointer"
             ></User>
             <a
-              className="flex items-center text-red-700 hover:opacity-70"
+              className="flex cursor-pointer items-center text-red-700 hover:opacity-70"
               onClick={async () => {
                 await signOut();
               }}
