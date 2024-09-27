@@ -14,7 +14,7 @@ export default function Sidebar({ session }: Props) {
     <div className="sticky top-0 h-screen w-60 flex-col bg-gray-100 p-4 py-10">
       <User
         avatarProps={{ radius: "lg", src: session.user.image ?? "" }}
-        name={session.user.name}
+        name={session.user.name ?? ""}
         className="cursor-pointer"
       ></User>
       <nav className="flex-1">
@@ -23,7 +23,6 @@ export default function Sidebar({ session }: Props) {
             <Button
               className="flex w-full items-center hover:opacity-70"
               variant="light"
-              // onClick={() => onSelectPage("Pet_manage")}
             >
               <Icon className="h-4" icon="ic:round-history" />
               History
