@@ -26,7 +26,8 @@ const columns = [
   { name: "NAME", uid: "name", sortable: true },
   { name: "AGE", uid: "age", sortable: true },
   { name: "EMAIL", uid: "email" },
-  { name: "PET ID", uid: "role", sortable: true },
+  { name: "CARRER", uid: "role", sortable: true },
+  { name: "PET ID", uid: "petid", sortable: true },
   { name: "ACTIONS", uid: "actions" },
 ];
 
