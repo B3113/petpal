@@ -87,3 +87,19 @@ model Pet {
 
     @@index([name])
 }
+
+model AdoptionRequest {
+    id        String   @id @default(cuid())
+    petId     String
+    userId    String
+    status    String
+    name      String
+    birthdate String
+    career    String
+    email     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([petId])
+    @@index([userId])
+}
