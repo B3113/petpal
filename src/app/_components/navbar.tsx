@@ -13,12 +13,14 @@ import {
 import { signIn, signOut } from "next-auth/react";
 import { type Session } from "next-auth";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   session: Session;
 };
 
 export default function Navbars({ session }: Props) {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   console.log(session);
 
@@ -63,15 +65,10 @@ export default function Navbars({ session }: Props) {
               avatarProps={{ radius: "lg", src: session.user.image ?? "" }}
               name={session.user.name}
               className="cursor-pointer"
-            ></User>
-            <a
-              className="flex cursor-pointer items-center text-red-700 hover:opacity-70"
-              onClick={async () => {
-                await signOut();
+              onClick={() => {
+                router.push("/adopter/history");
               }}
-            >
-              <Icon icon="material-symbols:logout" />
-            </a>
+            ></User>
           </div>
         ) : (
           <Button
