@@ -56,7 +56,7 @@ export default function Adoption({ session }: Props) {
     addAdoption.mutate({
       petId: selectedPet,
       userId: session.user.id,
-      name: data.name as string,
+      // name: data.name as string,
       career: data.career as string,
       birthdate: data.birthdate as string,
     });

@@ -24,6 +24,7 @@ export const adoptRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       return await ctx.db.adoptionRequest.findMany({
         where: { userId: input.id },
+        include: { pet: true, user: true } 
       });
     }),
 
