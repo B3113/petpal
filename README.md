@@ -16,6 +16,7 @@ PetPal is an adoption platform that connects pets in shelters with potential ado
 - **User**: `id`, `name`, `email`, `emailVerified`, `image`, `accounts`, `sessions`, `posts`, `AdoptionRequest`
 - **Pet**: `id`, `name`, `breed`, `specie`, `birthdate`, `image`, `description`, `status`, `createedAt`, `updatedAt`, `AdoptionRequest`
 - **AdoptionRequest**: `id`, `pet`, `user`, `status`, `birthdate`, `career`, `createedAt`, `updatedAt`, `petId`, `userId`
+
 ## Getting Started
 1. Clone the repo:
    ```bash
@@ -26,3 +27,33 @@ PetPal is an adoption platform that connects pets in shelters with potential ado
 3. Run the development server:
    ```bash
    npm run dev
+
+
+## Screenshots 
+### User
+- Home Page
+![Home Page](img/home.jpg)
+
+- Adopt pet
+![Home Page](img/allpet.jpg)
+
+- About Us
+![Home Page](img/aboutUs.jpg)
+
+- Adoption Form
+![Home Page](img/fillform.jpg)
+
+- History
+![Home Page](img/history.jpg)
+
+### Admin
+- Pet Management
+![Home Page](img/admin1.jpg)
+
+- Adopt Approval
+![Home Page](img/admin2.jpg)
+
+
+## Members
+1. Nanthanat Ounma [GitHub Profile](https://github.com/icepsn)  
+2. Bhurichaya Thuraphan [GitHub Profile](https://github.com/B3113)
