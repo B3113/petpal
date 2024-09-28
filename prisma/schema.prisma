@@ -55,14 +55,15 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+    id              String            @id @default(cuid())
+    name            String?
+    email           String?           @unique
+    emailVerified   DateTime?
+    image           String?
+    accounts        Account[]
+    sessions        Session[]
+    posts           Post[]
+    AdoptionRequest AdoptionRequest[]
 }
 
 model VerificationToken {
@@ -74,31 +75,30 @@ model VerificationToken {
 }
 
 model Pet {
-    id          String   @id @default(cuid())
-    name        String
-    breed       String
-    specie      String
-    birthdate   String
-    image       String
-    description String
-    status      String
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    id              String            @id @default(cuid())
+    name            String
+    breed           String
+    specie          String
+    birthdate       String
+    image           String
+    description     String
+    status          String
+    createdAt       DateTime          @default(now())
+    updatedAt       DateTime          @updatedAt
+    AdoptionRequest AdoptionRequest[]
 
     @@index([name])
 }
 
 model AdoptionRequest {
     id        String   @id @default(cuid())
-    petId     String
-    userId    String
+    pet       Pet?     @relation(fields: [petId], references: [id])
+    user      User?    @relation(fields: [userId], references: [id])
     status    String
-    name      String
     birthdate String
     career    String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    @@index([petId])
-    @@index([userId])
+    petId     String?
+    userId    String?
 }

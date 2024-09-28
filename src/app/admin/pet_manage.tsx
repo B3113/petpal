@@ -53,10 +53,10 @@ const columns = [
 ];
 
 const statusOptions = [
-  { name: "Active", uid: "active", label: "Available", key: "available" },
+  { name: "Available", uid: "available", label: "Available", key: "available" },
   {
-    name: "Paused",
-    uid: "paused",
+    name: "Not Available",
+    uid: "notavailable",
     label: "Not Available",
     key: "notavailable",
   },

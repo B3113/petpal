@@ -31,7 +31,9 @@ export const adoptRouter = createTRPCRouter({
     if (ctx.session.user.role != "admin") {
       throw new Error("You are not authorized to perform this action");
     }
-    return await ctx.db.adoptionRequest.findMany();
+    return await ctx.db.adoptionRequest.findMany(
+      { include: { pet: true, user: true } },
+    );
   }),
 
   create: protectedProcedure
@@ -39,7 +41,6 @@ export const adoptRouter = createTRPCRouter({
       z.object({
         petId: z.string(),
         userId: z.string(),
-        name: z.string(),
         career: z.string(),
         birthdate: z.string(),
       }),
@@ -49,7 +50,6 @@ export const adoptRouter = createTRPCRouter({
         data: {
           petId: input.petId,
           userId: input.userId,
-          name: input.name,
           birthdate: input.birthdate,
           career: input.career,
           status: "pending",
@@ -85,20 +85,35 @@ export const adoptRouter = createTRPCRouter({
       });
     }),
 
-  delete: protectedProcedure
-    .input(z.object({ id: z.string() }))
+ approve: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.pet.delete({ where: { id: input.id } });
+      return await ctx.db.adoptionRequest.update({
+        where: { id: input.id },
+        data: {
+          status: "approved",
+        },
+      });
     }),
 
-  getLatest: protectedProcedure.query(async ({ ctx }) => {
-    const post = await ctx.db.post.findFirst({
-      orderBy: { createdAt: "desc" },
-      where: { createdBy: { id: ctx.session.user.id } },
-    });
-
-    return post ?? null;
-  }),
+  reject: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.adoptionRequest.update({
+        where: { id: input.id },
+        data: {
+          status: "rejected",
+        },
+      });
+    }),
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
