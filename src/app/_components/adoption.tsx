@@ -151,7 +151,7 @@ export default function Adoption({ session }: Props) {
                 setSelectedPet(item.id);
                 onOpen();
               }}
-              className="absolute inset-0 z-20 flex cursor-pointer items-center justify-center rounded-lg bg-[#EADDF7] opacity-0 transition-opacity hover:opacity-60"
+              className="absolute inset-0 z-20 flex h-[300px] cursor-pointer items-center justify-center rounded-lg bg-[#EADDF7] opacity-0 transition-opacity hover:opacity-60"
             >
               <div className="p-5 text-center text-[#481878]">
                 <div className="text-lg font-semibold">{item.name}</div>
