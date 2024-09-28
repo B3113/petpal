@@ -125,7 +125,9 @@ export default function Adoption({ session }: Props) {
                   shadow="sm"
                   radius="lg"
                   alt={item.image}
-                  className="h-[300px] w-[300px] object-cover"
+                  className="object-cover"
+                  height={300}
+                  width={300}
                   src={item.image}
                 />
               </CardBody>
