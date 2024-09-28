@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Table,
@@ -15,11 +16,12 @@ import {
   Chip,
   User,
   Pagination,
-  Selection,
+  type Selection,
   ChipProps,
-  SortDescriptor,
+  type SortDescriptor,
 } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
+import { api } from "~/trpc/react";
 
 const columns = [
   { name: "ID", uid: "id", sortable: true },
@@ -241,6 +243,8 @@ const INITIAL_VISIBLE_COLUMNS = ["name", "role", "actions"];
 type User = (typeof users)[0];
 
 export default function App() {
+  const adoptionHistory = api.adopt.getAll.useQuery().data;
+  console.log(adoptionHistory);
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([]),

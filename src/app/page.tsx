@@ -13,7 +13,7 @@ export default async function page() {
     <div>
       <Navbar session={session!} />
       <Home />
-      <Adoption />
+      <Adoption session={session!} />
       <Aboutus />
       <Contact />
     </div>

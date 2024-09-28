@@ -5,7 +5,7 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
-import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
+import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google";
 
 import { env } from "~/env";
 import { db } from "~/server/db";
@@ -21,7 +21,7 @@ declare module "next-auth" {
     user: {
       id: string;
       // ...other properties
-      role: 'admin' | 'user';
+      role: "admin" | "user";
     } & DefaultSession["user"];
   }
 
@@ -42,8 +42,8 @@ export const authOptions: NextAuthOptions = {
       ...session,
       user: {
         ...session.user,
-        id: session.user.id,
-        role: session.user.email === env.ADMIN_EMAIL ? 'admin' : 'user',
+        id: user.id,
+        role: session.user.email === env.ADMIN_EMAIL ? "admin" : "user",
       },
     }),
   },
@@ -52,17 +52,16 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
-     profile(profile : GoogleProfile) {
+      profile(profile: GoogleProfile) {
         return {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
           image: profile.picture,
         };
-      }
+      },
     }),
   ],
-  
 };
 
 /**

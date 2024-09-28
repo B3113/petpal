@@ -8,9 +8,11 @@ import {
   Link,
   Image,
   Chip,
-  ChipProps,
+  type ChipProps,
   Button,
 } from "@nextui-org/react";
+import { api } from "~/trpc/server";
+import { getServerAuthSession } from "~/server/auth";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   approved: "success",
@@ -18,8 +20,13 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   processing: "warning",
 };
 
-export default function page() {
+export default async function page() {
   const status = "approved";
+  const session = await getServerAuthSession();
+  const adpotionHistory = await api.adopt.get({
+    id: session?.user.id ?? "",
+  });
+  console.log(adpotionHistory);
 
   return (
     <div className="p-10">

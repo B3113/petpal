@@ -5,7 +5,7 @@ import {
   CardBody,
   CardFooter,
   Image,
-  ChipProps,
+  type ChipProps,
   Chip,
   Modal,
   ModalContent,
@@ -19,6 +19,7 @@ import {
 } from "@nextui-org/react";
 import { api } from "~/trpc/react";
 import { CalendarDate } from "@internationalized/date";
+import { type Session } from "next-auth";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   available: "success",
@@ -26,10 +27,40 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   pending: "warning",
 };
 
-export default function Adoption() {
+type Props = {
+  session: Session;
+};
+
+export default function Adoption({ session }: Props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedPet, setSelectedPet] = React.useState("");
   const pets = api.pet.get.useQuery().data;
   console.log(pets);
+  console.log(session);
+
+  const addAdoption = api.adopt.create.useMutation({
+    onSuccess() {
+      alert("Adoption request sent");
+    },
+    onError() {
+      alert("Failed to send adoption request");
+    },
+  });
+
+  const handleAdopt = (formData: FormData) => {
+    const data = {
+      career: formData.get("career"),
+      birthdate: formData.get("birthdate"),
+      name: formData.get("name"),
+    };
+    addAdoption.mutate({
+      petId: selectedPet,
+      userId: session.user.id,
+      name: data.name as string,
+      career: data.career as string,
+      birthdate: data.birthdate as string,
+    });
+  };
 
   return (
     <div id="adoption" className="mt-20 flex justify-center">
@@ -60,7 +91,14 @@ export default function Adoption() {
             </Card>
 
             <div
-              onClick={onOpen}
+              onClick={() => {
+                if (!session) {
+                  alert("Please login to adopt a pet");
+                  return;
+                }
+                setSelectedPet(item.id);
+                onOpen();
+              }}
               className="absolute inset-0 z-20 flex cursor-pointer items-center justify-center rounded-lg bg-[#EADDF7] opacity-0 transition-opacity hover:opacity-60"
             >
               <div className="text-center text-[#481878]">
@@ -85,18 +123,29 @@ export default function Adoption() {
             >
               <ModalContent>
                 {(onClose) => (
-                  <>
+                  <form action={handleAdopt}>
                     <ModalHeader className="flex flex-col gap-1">
                       Adoption form
                     </ModalHeader>
                     <ModalBody>
-                      <Input variant="bordered" type="Name" label="Name" />
-                      <Input variant="bordered" type="Career" label="Career" />
+                      <Input
+                        name="name"
+                        variant="bordered"
+                        type="Name"
+                        label="Name"
+                      />
+                      <Input
+                        name="career"
+                        variant="bordered"
+                        type="Career"
+                        label="Career"
+                      />
                       <DateInput
                         variant="bordered"
                         label={"Birth date"}
                         placeholderValue={new CalendarDate(1995, 11, 6)}
                         className="w-full"
+                        name="birthdate"
                       />
                     </ModalBody>
                     <ModalFooter>
@@ -106,11 +155,12 @@ export default function Adoption() {
                       <Button
                         className="bg-[#6f4ef2] shadow-lg shadow-indigo-500/20"
                         onPress={onClose}
+                        type="submit"
                       >
                         Adopt
                       </Button>
                     </ModalFooter>
-                  </>
+                  </form>
                 )}
               </ModalContent>
             </Modal>
