@@ -32,26 +32,26 @@ PetPal is an adoption platform that connects pets in shelters with potential ado
 ## Screenshots 
 ### User
 - Home Page
-![Home Page](img/home.jpg)
+![Home Page](public/img/home.jpg)
 
 - Adopt pet
-![Home Page](img/allpet.jpg)
+![Adopt pet](public/img/allpet.jpg)
 
 - About Us
-![Home Page](img/aboutUs.jpg)
+![About Us](public/img/aboutUs.jpg)
 
 - Adoption Form
-![Home Page](img/fillform.jpg)
+![Adoption Form](public/img/fillform.jpg)
 
 - History
-![Home Page](img/history.jpg)
+![istory](public/img/history.jpg)
 
 ### Admin
 - Pet Management
-![Home Page](img/admin1.jpg)
+![Pet Management](public/img/admin1.jpg)
 
 - Adopt Approval
-![Home Page](img/admin2.jpg)
+![Adopt Approval](public/img/admin2.jpg)
 
 
 ## Members
