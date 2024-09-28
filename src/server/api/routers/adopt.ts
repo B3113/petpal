@@ -37,6 +37,18 @@ export const adoptRouter = createTRPCRouter({
     );
   }),
 
+  cancel: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.adoptionRequest.delete({
+        where: { id: input.id },
+      });
+    }),
+
   create: protectedProcedure
     .input(
       z.object({
@@ -93,10 +105,16 @@ export const adoptRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.adoptionRequest.update({
+       const adoption =  await ctx.db.adoptionRequest.update({
         where: { id: input.id },
         data: {
           status: "approved",
+        },
+      });
+      return await ctx.db.pet.update({
+        where: { id: adoption.petId ?? '' },
+        data: {
+          status: "adopted",
         },
       });
     }),

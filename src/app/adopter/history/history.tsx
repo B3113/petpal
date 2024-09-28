@@ -28,6 +28,18 @@ export default function History({ session }: Props) {
     processing: "warning",
   };
 
+  const utils = api.useUtils();
+
+  const cancelAdoption = api.adopt.cancel.useMutation({
+    async onSuccess() {
+      await utils.adopt.get.refetch();
+      alert("Adoption request cancelled");
+    },
+    onError() {
+      alert("Failed to cancel adoption request");
+    },
+  });
+
   console.log(adoptionHistory);
   return (
     <div className="p-10">
@@ -71,16 +83,26 @@ export default function History({ session }: Props) {
               <Divider />
               <CardFooter className="flex justify-between">
                 <p>{adoption.pet?.birthdate}</p>
-                <Button
-                  className="text-tiny"
-                  variant="flat"
-                  color="danger"
-                  radius="lg"
-                  size="sm"
-                  onClick={() => console.log(`Cancel adoption: ${adoption.id}`)}
-                >
-                  Cancel Adoption
-                </Button>
+                {adoption.status !== "approved" && (
+                  <Button
+                    className="text-tiny"
+                    variant="flat"
+                    color="danger"
+                    radius="lg"
+                    size="sm"
+                    onClick={() => {
+                      if (
+                        confirm("Are you sure you want to cancel the adoption?")
+                      ) {
+                        cancelAdoption.mutate({
+                          id: adoption.id,
+                        });
+                      }
+                    }}
+                  >
+                    Cancel Adoption
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}

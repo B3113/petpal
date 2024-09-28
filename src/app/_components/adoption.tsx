@@ -73,7 +73,7 @@ export default function Adoption({ session }: Props) {
                   shadow="sm"
                   radius="lg"
                   alt={item.image}
-                  className="w-[300px]"
+                  className="h-[300px] w-[300px] object-cover"
                   src={item.image}
                 />
               </CardBody>
@@ -101,10 +101,9 @@ export default function Adoption({ session }: Props) {
               }}
               className="absolute inset-0 z-20 flex cursor-pointer items-center justify-center rounded-lg bg-[#EADDF7] opacity-0 transition-opacity hover:opacity-60"
             >
-              <div className="text-center text-[#481878]">
+              <div className="p-5 text-center text-[#481878]">
                 <div className="text-lg font-semibold">{item.name}</div>
                 <div className="mt-1 text-sm">{item.description}</div>
-                <div className="mt-1 text-sm">{item.birthdate}</div>
               </div>
             </div>
             <Modal
